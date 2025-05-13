@@ -1,0 +1,193 @@
+:root {
+    --bg-color: #eaeaea;
+    --text-color: #000;
+    --input-bg: #fff;
+    --button-bg: #ccc;
+    --tab-bg: #ddd;
+    --tab-active: #3c2477;
+    --task-bg: #fff;
+    --calendar-bg: #fff;
+    --chat-bg: #fff;
+  }
+  
+  .dark-mode {
+    --bg-color: #1e1e1e;
+    --text-color: #fff;
+    --input-bg: #333;
+    --button-bg: #555;
+    --tab-bg: #444;
+    --tab-active: #7a5fe7;
+    --task-bg: #2c2c2c;
+    --calendar-bg: #2c2c2c;
+    --chat-bg: #2c2c2c;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .phone {
+    width: 320px;
+    height: 640px;
+    border: 16px solid black;
+    border-radius: 36px;
+    background: var(--bg-color);
+    overflow: hidden;
+    color: var(--text-color);
+    position: relative;
+  }
+  
+  .screen {
+    display: none;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  .screen.active {
+    display: block;
+  }
+  
+  .logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo img {
+    height: 60px;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    background: var(--input-bg);
+    color: var(--text-color);
+  }
+  
+  .button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: var(--button-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+  }
+  
+  .tab {
+    padding: 6px 12px;
+    border-radius: 10px;
+    background: var(--tab-bg);
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+  }
+  
+  .tab.active {
+    background: var(--tab-active);
+    color: #fff;
+  }
+  
+  .tasks {
+    margin-top: 10px;
+  }
+  
+  .task {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    background: var(--task-bg);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.1);
+  }
+  
+  .circle {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #3c2477;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .circle.checked {
+    background: #4caf50;
+  }
+  
+  .calendar {
+    margin: 15px 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+  }
+  
+  .calendar div {
+    padding: 5px;
+    background: var(--calendar-bg);
+    border-radius: 5px;
+  }
+  
+  .chat {
+    background: var(--chat-bg);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  .message {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+  }
+  
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #aaa;
+    margin-right: 10px;
+  }
+  
+  .toggle-mode {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: var(--button-bg);
+    color: var(--text-color);
+    border: none;
+  }
+  
+  .back-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  

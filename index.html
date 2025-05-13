@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>App de Tarefas</title>
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+  <div class="phone" id="app">
+    <button class="toggle-mode" id="toggleModeBtn">🌙</button>
+
+    <!-- Tela de Login -->
+    <section class="screen active" id="loginScreen">
+      <div class="logo">
+        <img src="https://via.placeholder.com/100x60?text=Logo" alt="Logo" />
+      </div>
+      <input type="text" class="input" id="username" placeholder="Username" />
+      <input type="password" class="input" id="password" placeholder="Password" />
+      <button class="button" id="loginBtn">Login</button>
+    </section>
+
+    <!-- Tela de Tarefas -->
+    <section class="screen" id="taskScreen">
+      <button class="back-btn" data-back="loginScreen">←</button>
+      <div class="logo">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqVg_URh9Mvrm3NYaTlCUyiM7r382ohELc1g&s" alt="User" />
+        <div><strong id="userLabel">USERNAME</strong></div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-filter="all">TUDO</button>
+        <button class="tab" data-filter="today">HOJE</button>
+        <button class="tab" data-filter="done">CONCLUÍDO</button>
+      </div>
+      <div class="tasks" id="taskList"></div>
+      <button class="button" id="goToCalendar">Calendário & Chat</button>
+    </section>
+
+    <!-- Tela de Calendário + Chat -->
+    <section class="screen" id="calendarScreen">
+      <button class="back-btn" data-back="taskScreen">←</button>
+      <div class="logo">
+        <!-- Imagem de perfil igual à da tela de tarefas -->
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqVg_URh9Mvrm3NYaTlCUyiM7r382ohELc1g&s" alt="User" />
+        <div><strong id="calendarUsername">USERNAME</strong></div>
+      </div>
+      <div class="calendar" id="calendar"></div>
+      <div class="chat">
+        <strong>CHAT</strong>
+        <div class="message"><div class="avatar" style="background:pink;"></div><div>João</div></div>
+        <div class="message"><div class="avatar" style="background:orange;"></div><div>Mônica</div></div>
+        <div class="message"><div class="avatar" style="background:teal;"></div><div>Maria</div></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
