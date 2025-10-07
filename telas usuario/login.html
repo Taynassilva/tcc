@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Login | Mind Map</title>
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body class="login">
+  <div class="login-card">
+    <h1>Mind Map</h1>
+    <p class="muted">Acesse sua conta para continuar</p>
+
+    <input type="text" id="nome" placeholder="Seu nome" required />
+    <input type="text" id="idFuncionario" placeholder="ID do funcionário" required />
+
+    <button id="entrarBtn">Entrar</button>
+  </div>
+
+  <script>
+    document.getElementById('entrarBtn').addEventListener('click', () => {
+      const nome = document.getElementById('nome').value.trim();
+      const idFuncionario = document.getElementById('idFuncionario').value.trim();
+      
+      if (!nome || !idFuncionario) {
+        alert('Por favor, preencha nome e ID do funcionário.');
+        return;
+      }
+
+      localStorage.setItem('usuario', nome);
+      localStorage.setItem('idFuncionario', idFuncionario);
+      window.location.href = "painel.html";
+    });
+
+    // Enter para logar
+    document.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('entrarBtn').click();
+      }
+    });
+  </script>
+</body>
+</html>
