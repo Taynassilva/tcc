@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mind Map - Calendar</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .calendar-container {
+      padding: 20px;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+    .day {
+      background: #f4f4f4;
+      border-radius: 8px;
+      padding: 10px;
+      min-height: 100px;
+      position: relative;
+    }
+    .day h4 {
+      margin: 0 0 5px;
+    }
+    .task {
+      background: #fff;
+      padding: 5px 8px;
+      border-radius: 6px;
+      margin-bottom: 5px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .edit-input {
+      width: 100%;
+      margin-top: 5px;
+      font-size: 13px;
+      padding: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar (reutilizado do layout principal) -->
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="https://img.freepik.com/fotos-gratis/jovem-barbudo-com-camisa-listrada_273609-5677.jpg?semt=ais_hybrid&w=740" alt="Logo" class="logo-img">
+        <h1>Mind Map</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="tasks.html">Tasks</a></li>
+          <li><a href="calendar.html" class="active">Calendar</a></li>
+          <li><a href="#chat">Chat</a></li>
+          <li><a href="#search">Search</a></li>
+          <li><a href="#profile">Profile</a></li>
+          <li><a href="#settings">Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <header>
+        <h2>Calendar</h2>
+        <div class="header-actions">
+          <button id="notifications" class="icon-button">🔔</button>
+          <button id="darkMode" class="icon-button">🌙</button>
+          <div class="user-profile">
+            <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=50" alt="Profile" class="profile-img">
+            <span>John Doe</span>
+          </div>
+        </div>
+      </header>
+      
+
+      <div class="calendar-container">
+        <div class="calendar" id="calendar">
+          <!-- Dias serão gerados via JavaScript -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <main class="main">
+    <a href="index.html" class="back-link">← Voltar para Dashboard</a> <!-- link para voltar -->
+    <div class="header">
+      <h1>Tasks</h1>
+    </div>
+
+  <script>
+    const calendar = document.getElementById('calendar');
+    const daysInMonth = 30;
+
+    const tasksPerDay = {
+      3: ['Reunião de equipe'],
+      5: ['Entrega do relatório'],
+      12: ['Revisar projeto'],
+      15: ['Apresentação ao cliente'],
+      22: ['Atualizar banco de dados']
+    };
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayDiv = document.createElement('div');
+      dayDiv.className = 'day';
+      dayDiv.innerHTML = `<h4>${day}</h4>`;
+
+      if (tasksPerDay[day]) {
+        tasksPerDay[day].forEach((task, index) => {
+          const taskDiv = document.createElement('div');
+          taskDiv.className = 'task';
+          taskDiv.textContent = task;
+          taskDiv.dataset.day = day;
+          taskDiv.dataset.index = index;
+
+          taskDiv.addEventListener('click', function () {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = task;
+            input.className = 'edit-input';
+
+            input.addEventListener('blur', () => {
+              const newValue = input.value.trim();
+              if (newValue) {
+                tasksPerDay[day][index] = newValue;
+                taskDiv.textContent = newValue;
+              }
+              taskDiv.replaceWith(taskDiv);
+            });
+
+            taskDiv.replaceWith(input);
+            input.focus();
+          });
+
+          dayDiv.appendChild(taskDiv);
+        });
+      }
+
+      calendar.appendChild(dayDiv);
+    }
+  </script>
+</body>
+</html>
+

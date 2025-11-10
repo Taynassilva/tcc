@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mind Map - Tasks</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8fafc;
+      color: #1f2937;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: white;
+      padding: 20px;
+      height: 100vh;
+      border-right: 1px solid #e5e7eb;
+    }
+
+    .sidebar h2 {
+      color: #3b82f6;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #374151;
+    }
+
+    .sidebar li:hover,
+    .sidebar li.active {
+      background-color: #e0f2fe;
+      color: #1d4ed8;
+    }
+
+    .main {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .task-section {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+
+    .task-section h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .task {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .task:last-child {
+      border-bottom: none;
+    }
+
+    .task label {
+      flex: 1;
+      margin-left: 10px;
+    }
+
+    .priority {
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .high {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .medium {
+      background: #fef9c3;
+      color: #b45309;
+    }
+
+    .low {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .add-task-btn {
+      margin-top: 20px;
+      padding: 10px 16px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .add-task-btn:hover {
+      background: #2563eb;
+    }
+
+    /* Link para voltar */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 15px;
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Mind Map</h2>
+      <ul>
+        <li>Dashboard</li>
+        <li class="active">Tasks</li>
+        <li>Calendar</li>
+        <li>Chat</li>
+        <li>Search</li>
+        <li>Profile</li>
+        <li>Settings</li>
+      </ul>
+    </aside>
+    
+    
+
+    <main class="main">
+      <a href="index.html" class="back-link">← Voltar para Dashboard</a> <!-- link para voltar -->
+      <div class="header">
+        <h1>Tasks</h1>
+      </div>
+      
+
+      <div class="task-section">
+        <h2>My Tasks</h2>
+        <div id="task-list">
+          <!-- Tarefas são adicionadas aqui -->
+        </div>
+        <button class="add-task-btn" onclick="addTask()">+ Add Task</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const tasks = [
+      { name: 'Review Q1 Marketing Plan', priority: 'high' },
+      { name: 'Team Meeting Preparation', priority: 'medium' },
+      { name: 'Update Documentation', priority: 'low' }
+    ];
+
+    const taskList = document.getElementById('task-list');
+
+    function renderTasks() {
+      taskList.innerHTML = '';
+      tasks.forEach(task => {
+        const div = document.createElement('div');
+        div.className = 'task';
+
+        div.innerHTML = `
+          <input type="checkbox">
+          <label>${task.name}</label>
+          <span class="priority ${task.priority}">${task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}</span>
+        `;
+
+        taskList.appendChild(div);
+      });
+    }
+
+    function addTask() {
+      const name = prompt('Task name:');
+      if (name) {
+        const priority = prompt('Priority (high, medium, low):', 'medium');
+        if (['high', 'medium', 'low'].includes(priority)) {
+          tasks.push({ name, priority });
+          renderTasks();
+        } else {
+          alert('Invalid priority!');
+        }
+      }
+    }
+
+    renderTasks();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mind Map - Search</title>
+<style>
+  /* Reset básico */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f3f4f6;
+    color: #1f2937;
+    height: 100vh;
+    display: flex;
+  }
+
+  .app {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+  }
+
+  /* Sidebar igual Mind Map */
+  aside.sidebar {
+    width: 220px;
+    background: white;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .logo-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .logo h1 {
+    font-size: 24px;
+    color: #3b82f6;
+    margin: 0;
+  }
+
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  nav ul li {
+    margin-bottom: 12px;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: #374151;
+    font-weight: 600;
+    padding: 10px 14px;
+    display: block;
+    border-radius: 8px;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  nav ul li a.active,
+  nav ul li a:hover {
+    background-color: #e0f2fe;
+    color: #1d4ed8;
+  }
+
+  /* Main content */
+  main.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #f9fafb;
+  }
+
+  header {
+    background: white;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  header h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .icon-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #6b7280;
+  }
+
+  .icon-button:hover {
+    color: #2563eb;
+  }
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .profile-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  /* Search container */
+  .search-container {
+    padding: 24px;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .search-box {
+    display: flex;
+    max-width: 480px;
+    margin-bottom: 24px;
+  }
+
+  .search-box input[type="text"] {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 12px 0 0 12px;
+    border: 1px solid #d1d5db;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-box input[type="text"]:focus {
+    border-color: #3b82f6;
+  }
+
+  .search-box button {
+    background-color: #3b82f6;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    font-weight: 600;
+    border-radius: 0 12px 12px 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .search-box button:hover {
+    background-color: #2563eb;
+  }
+
+  /* Results */
+  .results-list {
+    max-width: 600px;
+  }
+
+  .result-item {
+    background: white;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.1);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .result-item:hover {
+    background-color: #e0f2fe;
+  }
+
+  .result-title {
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .result-subtitle {
+    font-size: 14px;
+    color: #6b7280;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="https://img.freepik.com/fotos-gratis/jovem-barbudo-com-camisa-listrada_273609-5677.jpg?semt=ais_hybrid&w=740" alt="Logo" class="logo-img" />
+      <h1>Mind Map</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="tasks.html">Tasks</a></li>
+        <li><a href="calendar.html">Calendar</a></li>
+        <li><a href="chat.html">Chat</a></li>
+        <li><a href="#" class="active">Search</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </nav>
+    
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header>
+      <h2>Search</h2>
+      <div class="header-actions">
+        <button id="notifications" class="icon-button">🔔</button>
+        <button id="darkMode" class="icon-button">🌙</button>
+        <div class="user-profile">
+          <img
+            src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=50"
+            alt="Profile"
+            class="profile-img"
+          />
+          <span>John Doe</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="search-container">
+      <form id="searchForm" class="search-box" onsubmit="return false;">
+        <input type="text" id="searchInput" placeholder="Search tasks, projects, people..." autocomplete="off" />
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="results-list" id="resultsList">
+        <!-- Resultados aparecerão aqui -->
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const resultsList = document.getElementById('resultsList');
+  const searchForm = document.getElementById('searchForm');
+
+  // Dados fictícios para busca
+  const items = [
+    { title: 'Review Q1 Marketing Plan', subtitle: 'Task - Due Apr 15' },
+    { title: 'Team Meeting Preparation', subtitle: 'Task - Due Apr 17' },
+    { title: 'Update Client Database', subtitle: 'Task - Completed' },
+    { title: 'Project Alpha', subtitle: 'Project - Active' },
+    { title: 'John Doe', subtitle: 'User - Manager' },
+    { title: 'Sarah Smith', subtitle: 'User - Marketing' },
+    { title: 'Monthly Report', subtitle: 'Document - March 2025' },
+  ];
+
+  function renderResults(filteredItems) {
+    resultsList.innerHTML = '';
+    if(filteredItems.length === 0) {
+      resultsList.innerHTML = '<p>No results found.</p>';
+      return;
+    }
+    filteredItems.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'result-item';
+      div.innerHTML = `
+        <div class="result-title">${item.title}</div>
+        <div class="result-subtitle">${item.subtitle}</div>
+      `;
+      resultsList.appendChild(div);
+    });
+  }
+
+  searchForm.addEventListener('submit', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    const filtered = items.filter(item => item.title.toLowerCase().includes(query) || item.subtitle.toLowerCase().includes(query));
+    renderResults(filtered);
+  });
+
+  // Renderiza todos os itens inicialmente
+  renderResults(items);
+</script>
+</body>
+</html>
