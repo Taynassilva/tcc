@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema - Carregando</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body class="splash-page">
+    <div class="splash-container">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <div class="logo-circle pulse"></div>
+            </div>
+            
+            <h1 class="splash-title">Mind Map</h1>
+            <p class="splash-subtitle">Gerenciamento de Tarefas</p>
+            
+            <div class="loading-container">
+                <div class="loading-bar">
+                    <div class="loading-progress"></div>
+                </div>
+                
+                <div class="loading-stats">
+                    <div class="stat-item">Carregando...</div>
+                    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = 'login.html';
+        }, 4000);
+    </script>
+</body>
+</html>

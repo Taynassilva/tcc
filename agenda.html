@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda - Sistema</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body class="painel-page">
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-circle">S</div>
+                <div class="logo">Sistema</div>
+            </div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">T</div>
+                <div class="user-details">
+                    <div class="user-name">tayna</div>
+                    <div class="user-id">ID: #12345</div>
+                    <div class="user-role">Administrador</div>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html" class="nav-item">Dashboard</a></li>
+                    <li><a href="painel.html" class="nav-item">Minhas Tarefas</a></li>
+                    <li><a href="agenda.html" class="nav-item ativo">Agenda</a></li>
+                    <li><a href="chat.html" class="nav-item">Chat</a></li>
+                    <li><a href="perfil.html" class="nav-item">Perfil</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="logout-button" onclick="sair()">Sair</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <button class="menu-toggle">☰</button>
+                    <h1 id="pageTitle">Agenda</h1>
+                </div>
+                <div class="user-info">Olá, tayna</div>
+            </header>
+
+            <div class="content-body">
+                <div class="agenda-header">
+                    <div class="controles-agenda">
+                        <button class="btn-mes" id="mes-anterior">‹ Mês Anterior</button>
+                        <div class="mes-atual" id="mes-atual">Novembro 2024</div>
+                        <button class="btn-mes" id="mes-proximo">Próximo Mês ›</button>
+                    </div>
+                </div>
+
+                <div class="calendario-container">
+                    <div class="calendario-dias-semana">
+                        <div class="dia-semana">DOM</div>
+                        <div class="dia-semana">SEG</div>
+                        <div class="dia-semana">TER</div>
+                        <div class="dia-semana">QUA</div>
+                        <div class="dia-semana">QUI</div>
+                        <div class="dia-semana">SEX</div>
+                        <div class="dia-semana">SAB</div>
+                    </div>
+                    <div class="calendario-dias" id="calendario-dias">
+                        <!-- JavaScript vai gerar os dias aqui -->
+                    </div>
+                </div>
+
+                <div class="tarefas-dia-container" id="tarefas-dia" style="display: none;">
+                    <!-- Tarefas do dia aparecem aqui -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let dataAtual = new Date();
+        const eventosImportantes = {
+            '2024-11-15': { tipo: 'reuniao', titulo: 'Reunião Geral', cor: 'vermelho' },
+            '2024-11-20': { tipo: 'entrega', titulo: 'Entrega Projeto', cor: 'vermelho' },
+            '2024-11-25': { tipo: 'reuniao', titulo: 'Reunião Equipe', cor: 'vermelho' },
+            '2024-11-28': { tipo: 'tarefa', titulo: 'Configurar Servidor', cor: 'azul' }
+        };
+
+        function gerarCalendario() {
+            const calendario = document.getElementById('calendario-dias');
+            const mesAtual = document.getElementById('mes-atual');
+            
+            // Atualiza o mês atual
+            mesAtual.textContent = dataAtual.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+            
+            calendario.innerHTML = '';
+            
+            const primeiroDia = new Date(dataAtual.getFullYear(), dataAtual.getMonth(), 1);
+            const ultimoDia = new Date(dataAtual.getFullYear(), dataAtual.getMonth() + 1, 0);
+            
+            // Dias vazios no início
+            for (let i = 0; i < primeiroDia.getDay(); i++) {
+                const diaVazio = document.createElement('div');
+                diaVazio.className = 'calendario-dia vazio';
+                calendario.appendChild(diaVazio);
+            }
+            
+            // Dias do mês
+            for (let dia = 1; dia <= ultimoDia.getDate(); dia++) {
+                const data = new Date(dataAtual.getFullYear(), dataAtual.getMonth(), dia);
+                const dataKey = data.toISOString().split('T')[0];
+                const evento = eventosImportantes[dataKey];
+                
+                const diaElement = document.createElement('div');
+                diaElement.className = 'calendario-dia';
+                diaElement.setAttribute('data-dia', dia);
+                diaElement.setAttribute('data-mes', dataAtual.getMonth() + 1);
+                diaElement.setAttribute('data-ano', dataAtual.getFullYear());
+                
+                const hoje = new Date();
+                if (dia === hoje.getDate() && dataAtual.getMonth() === hoje.getMonth() && dataAtual.getFullYear() === hoje.getFullYear()) {
+                    diaElement.classList.add('hoje');
+                }
+                
+                if (evento) {
+                    diaElement.classList.add('evento-importante');
+                    diaElement.style.border = '2px solid red';
+                    diaElement.title = evento.titulo;
+                }
+                
+                // Tarefas simuladas
+                if (dia % 3 === 0 || dia === 25 || dia === 28) {
+                    diaElement.classList.add('com-tarefas');
+                }
+                
+                diaElement.innerHTML = `
+                    <div class="calendario-numero">${dia}</div>
+                    ${evento ? '<div class="evento-marcador" style="background: red;"></div>' : ''}
+                    ${diaElement.classList.contains('com-tarefas') ? '<div class="calendario-marcador"></div>' : ''}
+                `;
+                
+                diaElement.addEventListener('click', function() {
+                    mostrarTarefasDia(dia, dataAtual.getMonth() + 1, dataAtual.getFullYear());
+                });
+                
+                calendario.appendChild(diaElement);
+            }
+        }
+
+        function mostrarTarefasDia(dia, mes, ano) {
+            const container = document.getElementById('tarefas-dia');
+            const dataKey = `${ano}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+            const evento = eventosImportantes[dataKey];
+            
+            let conteudoEvento = '';
+            if (evento) {
+                conteudoEvento = `
+                    <div class="tarefa-item" style="border-left: 4px solid red;">
+                        <div class="tarefa-header">
+                            <strong>${evento.titulo}</strong>
+                            <div class="tarefa-hora">EVENTO IMPORTANTE</div>
+                        </div>
+                        <div class="tarefa-info">
+                            <span class="status" style="background: red;">${evento.tipo.toUpperCase()}</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = `
+                <div class="card">
+                    <h2>Tarefas para ${dia}/${mes}/${ano}</h2>
+                    <div class="tarefas-lista">
+                        ${conteudoEvento}
+                        <div class="tarefa-item">
+                            <div class="tarefa-header">
+                                <strong>Reunião diária</strong>
+                                <div class="tarefa-hora">09:00</div>
+                            </div>
+                            <div class="tarefa-info">
+                                <span class="status pendente">PENDENTE</span>
+                            </div>
+                        </div>
+                        <div class="tarefa-item">
+                            <div class="tarefa-header">
+                                <strong>Trabalhar no projeto</strong>
+                                <div class="tarefa-hora">14:00</div>
+                            </div>
+                            <div class="tarefa-info">
+                                <span class="status andamento">EM ANDAMENTO</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.style.display = 'block';
+        }
+
+        // Controles do calendário
+        document.getElementById('mes-anterior').addEventListener('click', function() {
+            dataAtual.setMonth(dataAtual.getMonth() - 1);
+            gerarCalendario();
+        });
+
+        document.getElementById('mes-proximo').addEventListener('click', function() {
+            dataAtual.setMonth(dataAtual.getMonth() + 1);
+            gerarCalendario();
+        });
+
+        // Menu mobile
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        function sair() {
+            if(confirm('Deseja realmente sair?')) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Inicializar
+        gerarCalendario();
+    </script>
+</body>
+</html>

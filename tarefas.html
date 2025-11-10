@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas - Sistema</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body class="painel-page">
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-circle">S</div>
+                <div class="logo">Sistema</div>
+            </div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">T</div>
+                <div class="user-details">
+                    <div class="user-name">tayna</div>
+                    <div class="user-id">ID: #12345</div>
+                    <div class="user-role">Administrador</div>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html" class="nav-item">Dashboard</a></li>
+                    <li><a href="tarefas.html" class="nav-item ativo">Tarefas</a></li>
+                    <li><a href="chat.html" class="nav-item">Chat</a></li>
+                    <li><a href="agenda.html" class="nav-item">Agenda</a></li>
+                    <li><a href="perfil.html" class="nav-item">Perfil & Config</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="logout-button" onclick="sair()">Sair</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <button class="menu-toggle">☰</button>
+                    <h1 id="pageTitle">Tarefas da Semana</h1>
+                </div>
+                <div class="user-info">Olá, tayna</div>
+            </header>
+
+            <div class="content-body">
+                <div class="card">
+                    <h2>Todas as Tarefas - Esta Semana</h2>
+                    <div class="tarefas-colunas">
+                        <div class="tarefa-coluna coluna-pendente">
+                            <h3>Pendentes</h3>
+                            <div class="tarefa-item">
+                                <strong>Configurar servidor novo</strong>
+                                <div class="tarefa-meta">
+                                    <span class="status-badge pendente">PENDENTE</span>
+                                    <span class="prioridade-badge alta">ALTA</span>
+                                </div>
+                                <div class="tarefa-data">Prazo: 28/11</div>
+                            </div>
+                        </div>
+
+                        <div class="tarefa-coluna coluna-andamento">
+                            <h3>Em Andamento</h3>
+                            <div class="tarefa-item">
+                                <strong>Desenvolver módulo de relatórios</strong>
+                                <div class="tarefa-meta">
+                                    <span class="status-badge andamento">ANDAMENTO</span>
+                                    <span class="prioridade-badge media">MÉDIA</span>
+                                </div>
+                                <div class="tarefa-data">Progresso: 60%</div>
+                            </div>
+                        </div>
+
+                        <div class="tarefa-coluna coluna-concluido">
+                            <h3>Concluídas</h3>
+                            <div class="tarefa-item concluido">
+                                <strong>Atualizar documentação</strong>
+                                <div class="tarefa-meta">
+                                    <span class="status-badge concluido">CONCLUÍDO</span>
+                                    <span class="prioridade-badge baixa">BAIXA</span>
+                                </div>
+                                <div class="tarefa-data">Concluído: 24/11</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        function sair() {
+            if(confirm('Deseja realmente sair?')) {
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>
